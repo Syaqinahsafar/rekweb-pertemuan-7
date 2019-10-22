@@ -19,12 +19,32 @@
 
     <div class="row mt-3">
         <div class="col-md-6">
+            <form action="" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Mahasiswa Data..." name="keyword">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="submit" >Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6">
             <h3>Daftar Mahasiswa</h3>
+            <?php if( empty($mahasiswa) ) : ?>
+                <div class="alert alert-danger" role="alert">
+                    mahasiswa data not found.
+                </div>
+            <?php endif; ?>
             <ul class="list-group">
                 <?php foreach( $mahasiswa as $mhs ) : ?>
                     <li class="list-group-item">
                         <?= $mhs['name']; ?>
                         <a href="<?= base_url(); ?>mahasiswa/delete/<?= $mhs['id']; ?>" class="badge badge-danger float-right" onclick="return confirm('confirm?')">delete</a>
+                        <a href="<?= base_url(); ?>mahasiswa/edit/<?= $mhs['id']; ?>" class="badge badge-success float-right">edit</a>
+                        <a href="<?= base_url(); ?>mahasiswa/detail/<?= $mhs['id']; ?>" class="badge badge-primary float-right">detail</a>
                     </li>
                 <?php endforeach; ?>
             </ul>
