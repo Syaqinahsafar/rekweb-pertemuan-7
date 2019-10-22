@@ -8,18 +8,24 @@
                     Add Mahasiswa Data Form
                 </div>
                 <div class="card-body">
+                    <?php if( validation_errors() ): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= validation_errors(); ?>
+                        </div>
+                    <?php endif; ?>
+                    
                     <form action="" method="post">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name">
+                            <input type="text" name="name" class="form-control" id="name">
                         </div>
                         <div class="form-group">
                             <label for="matric">Matric</label>
-                            <input type="text" class="form-control" id="matric">
+                            <input type="text" name="matric" class="form-control" id="matric">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email">
+                            <input type="text" name="email" class="form-control" id="email">
                         </div>
                         <div class="form-group">
                             <label for="course">Course</label>
