@@ -17,4 +17,12 @@ class Mahasiswa extends CI_Controller {
         $this->load->view('mahasiswa/index', $data);
         $this->load->view('templates/footer');
     }
+
+    public function add()
+    {
+        $data['title'] = 'Add Mahasiswa Data Form';
+        $this->load->view('templates/header', $data);
+        $this->load->view('mahasiswa/add');
+        $this->load->view('templates/footer');
+    }
 }
