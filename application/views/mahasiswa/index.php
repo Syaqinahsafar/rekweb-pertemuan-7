@@ -1,6 +1,8 @@
 <div class="container">
+    <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
     <?php if( $this->session->flashdata('flash') ) : ?>
-    <div class="row mt-3">
+
+    <!-- <div class="row mt-3">
         <div class="clo-md-6">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 Data mahasiswa <strong>success</strong> <?= $this->session->flashdata('flash'); ?>. <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -8,7 +10,8 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
+
 <?php endif; ?>
 
     <div class="row mt-3">
@@ -42,7 +45,7 @@
                 <?php foreach( $mahasiswa as $mhs ) : ?>
                     <li class="list-group-item">
                         <?= $mhs['name']; ?>
-                        <a href="<?= base_url(); ?>mahasiswa/delete/<?= $mhs['id']; ?>" class="badge badge-danger float-right" onclick="return confirm('confirm?')">delete</a>
+                        <a href="<?= base_url(); ?>mahasiswa/delete/<?= $mhs['id']; ?>" class="badge badge-danger float-right button-delete">delete</a>
                         <a href="<?= base_url(); ?>mahasiswa/edit/<?= $mhs['id']; ?>" class="badge badge-success float-right">edit</a>
                         <a href="<?= base_url(); ?>mahasiswa/detail/<?= $mhs['id']; ?>" class="badge badge-primary float-right">detail</a>
                     </li>
