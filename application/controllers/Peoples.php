@@ -6,48 +6,27 @@ class Peoples extends CI_Controller {
     public function index()
     { 
         $data['title'] = 'List of Peoples';
-
-      
-        // $data['title'] = 'Daftar Mahasiswa';
         $this->load->model('Peoples_model', 'peoples');
 
-        //PAGINATION
+        // load library
         $this->load->library('pagination');
+
+        // take out keyword data
+        if($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
     
 
-        //config
-        $config['base_url'] = 'http://localhost/rekweb/rekweb-exe2/peoples/index/';
-        $config['total_rows'] = $this->peoples->countAllPeoples();
-        $config['per_page'] = 12;
-
-
-        // styling
-        $config['full_tag_open'] = '<nav><ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul></nav>';
-
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="page-item">';
-        $config['first_tag_close'] = '</li>';
-          
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="page-item">';
-        $config['last_tag_close'] = '</li>';
-          
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="page-item">';
-        $config['next_tag_close'] = '</li>';
-
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="page-item">';
-        $config['prev_tag_close'] = '</li>';
-      
-        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-        
-        $config['num_tag_open'] = '<li class="page-item">';
-        $config['num_tag_close'] = '</li>';
-
-        $config['attributes'] = array('class' => 'page-link');
+        // config
+        $this->db->like('name', $data['keyword']);
+        $this->db->like('email', $data['keyword']);
+        $this->db->from('peoples');
+        $config['total_rows'] = $this->db->count_all_results();
+        $data['total_rows'] = $config['total_rows'];
+        $config['per_page'] = 8;
 
 
         // initialize
@@ -57,7 +36,7 @@ class Peoples extends CI_Controller {
 
 
         $data['start'] = $this->uri->segment(3);
-        $data['peoples'] = $this->peoples->getPeoples($config['per_page'], $data['start']);
+        $data['peoples'] = $this->peoples->getPeoples($config['per_page'], $data['start'], $data['keyword']);
       
         $this->load->view('templates/header', $data);
         $this->load->view('peoples/index', $data);
